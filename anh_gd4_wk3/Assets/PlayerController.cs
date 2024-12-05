@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,16 +11,24 @@ public class PlayerController : MonoBehaviour
     float xRange = 2.6f;
     float yRange = 2.1f;
     public GameObject projectilePrefab;
+    public GameObject musicPrefab;
     float turnSpeed = 100.0f;
+
+    public int lives;
+    public GameObject[] hearts;
+    public bool dead;
     
     public int score;
 
     public TMP_Text scoreText;
 
+    Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        lives = hearts.Length;
     }
 
     // Update is called once per frame
@@ -30,6 +40,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDir = new Vector3(horizontalMove,verticalMove,0).normalized;
         transform.Translate(moveDir * Time.deltaTime * speed, Space.World);
+
+        // play walk animation if player is moving
+        if (horizontalMove != 0 || verticalMove != 0)
+        {
+            animator.Play("princessWalk");
+        }
+
+        // play idle animation if player is not moving or pressing buttons
+        if (horizontalMove == 0 && verticalMove == 0 && Input.anyKeyDown == false)
+        {
+            animator.Play("princessIdle");
+        }
 
         // rotate player in movement direction 
         if (horizontalMove == 1) {
@@ -69,11 +91,57 @@ public class PlayerController : MonoBehaviour
             //Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
 
             // spawn object one space in front of player with its default rotation
-            Instantiate(projectilePrefab, transform.position + new Vector3(0,0,1), transform.rotation);
+            animator.Play("princessThrow");
+            Instantiate(projectilePrefab, transform.position + transform.up, transform.rotation);
 
+        }
+
+        // spawn musical note (sing mechanic)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            animator.Play("princessSing");
+            Instantiate(musicPrefab, transform.position + transform.up, transform.rotation);
         }
 
         // update score text
         scoreText.text = "Bunnies charmed: " + score;
+
+        if (score == 50)
+        {
+            animator.Play("princessVictory");
+        }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.transform.tag == "EvilBunny")
+        {
+            // lose a life
+            TakeDamage(1);
+
+            if (dead == true)
+            {
+                // Game over
+                Debug.Log("Game over!");
+                animator.Play("princessLose");
+            } 
+           
+        }
+    }
+
+    void TakeDamage(int d)
+    {
+        if (lives >= 1)
+        {
+            lives -= d;
+            Destroy(hearts[lives].gameObject);
+
+            if(lives < 1) 
+            {
+                dead = true;
+            }
+        }
+        
+    }
+
 }
