@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.Play("princessVictory");
         }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
