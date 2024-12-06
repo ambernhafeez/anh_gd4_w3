@@ -182,7 +182,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 7ad17a0175b9fd5418a0f60fce0ff205, type: 3}
-  m_Color: {r: 0.44774458, g: 0.5471698, b: 0.35824135, a: 1}
+  m_Color: {r: 0.96998215, g: 0.97735846, b: 0.96444994, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animals:
   - {fileID: 4167989523576991019, guid: ae7c15e5e1459914c90dde26f5684257, type: 3}
-  - {fileID: 9104471454480181031, guid: e8d19fa415e102248b779762c6e7116f, type: 3}
+  - {fileID: 4167989523576991019, guid: ae7c15e5e1459914c90dde26f5684257, type: 3}
 --- !u!4 &1176085810
 Transform:
   m_ObjectHideFlags: 0
@@ -1063,6 +1063,7 @@ MonoBehaviour:
   hungerBar: {fileID: 1921201611}
   hungerAmount: 100
   drainSpeed: 20
+  evilBunny: {fileID: 0}
 --- !u!114 &1921201611 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5729871427529936837, guid: ae7c15e5e1459914c90dde26f5684257, type: 3}

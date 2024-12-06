@@ -5,7 +5,8 @@ public class HungerManager : MonoBehaviour
 {
     public Image hungerBar;
     public float hungerAmount = 100f;
-    public float drainSpeed = 20;
+    public float drainSpeed = 15;
+    public GameObject evilBunny;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,8 +25,27 @@ public class HungerManager : MonoBehaviour
         // change bunny into evil bunny if hunger bar is empty
         if (hungerAmount <= 0)
         {
-            
+            Instantiate(evilBunny, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
+    }
+
+    // mechanic to get destroyed on collision with projectile
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.transform.tag == "Projectile")
+        {
+            // Destroy projectile
+            Destroy(other.gameObject);
+
+            // Destroy self
+            Destroy(gameObject);
+
+            // Update score by accessing player controller script
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().score ++;
+
+        }
+
     }
 
 }

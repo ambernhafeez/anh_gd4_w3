@@ -45,13 +45,15 @@ public class PlayerController : MonoBehaviour
         // play walk animation if player is moving
         if (horizontalMove != 0 || verticalMove != 0)
         {
-            animator.Play("princessWalk");
+            //animator.Play("princessWalk");
+            animator.SetBool("isWalking", true);
         }
 
         // play idle animation if player is not moving or pressing buttons
         if (horizontalMove == 0 && verticalMove == 0 && Input.anyKeyDown == false)
         {
-            animator.Play("princessIdle");
+            animator.SetBool("isWalking", false);
+            //animator.Play("princessIdle");
         }
 
         // rotate player in movement direction 
@@ -92,7 +94,8 @@ public class PlayerController : MonoBehaviour
             //Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
 
             // spawn object one space in front of player with its default rotation
-            animator.Play("princessThrow");
+            //animator.Play("princessThrow");
+            animator.SetTrigger("Attack");
             Instantiate(projectilePrefab, transform.position + transform.up, transform.rotation);
 
         }
@@ -125,7 +128,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Game over
                 Debug.Log("Game over!");
-                animator.Play("princessLose");
+                SceneManager.LoadScene(2);
             } 
            
         }

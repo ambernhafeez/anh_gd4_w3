@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1417047262012890842}
   - component: {fileID: -6863899281984733715}
   - component: {fileID: 5055098737549302054}
+  - component: {fileID: 7381061788263032703}
   m_Layer: 0
   m_Name: Evil_bunny
   m_TagString: EvilBunny
@@ -190,3 +191,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7381061788263032703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9104471454480181031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103aeadd66b6eb348a732a8d22570283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  niceBunny: {fileID: 4167989523576991019, guid: ae7c15e5e1459914c90dde26f5684257, type: 3}

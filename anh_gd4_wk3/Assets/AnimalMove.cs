@@ -28,26 +28,4 @@ public class AnimalMove : MonoBehaviour
         }
     }
 
-    // mechanic to get destroyed on collision with projectile
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.transform.tag == "Projectile")
-        {
-            // Destroy projectile
-            Destroy(other.gameObject);
-
-            // Destroy self
-            Destroy(gameObject);
-
-            // Update score by accessing player controller script
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().score ++;
-
-        }
-
-        if(other.transform.tag == "Music")
-        {
-            // change evil bunny into bunny
-
-        }
-    }
 }
