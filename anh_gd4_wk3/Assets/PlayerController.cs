@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public int lives;
     public GameObject[] hearts;
     public bool dead;
+    public bool victory;
     
     public int score;
 
@@ -25,11 +26,18 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
+    public AudioClip throwSound;
+    public AudioClip damageSound;
+    public AudioClip singSound;
+    private AudioSource audioSource;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
         lives = hearts.Length;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -95,7 +103,8 @@ public class PlayerController : MonoBehaviour
 
             // spawn object one space in front of player with its default rotation
             //animator.Play("princessThrow");
-            animator.SetTrigger("Attack");
+            animator.SetTrigger("Throw");
+            audioSource.PlayOneShot(throwSound);
             Instantiate(projectilePrefab, transform.position + transform.up, transform.rotation);
 
         }
@@ -103,16 +112,18 @@ public class PlayerController : MonoBehaviour
         // spawn musical note (sing mechanic)
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            animator.Play("princessSing");
+            animator.SetTrigger("Sing");
+            audioSource.PlayOneShot(singSound);
             Instantiate(musicPrefab, transform.position + transform.up, transform.rotation);
         }
 
         // update score text
         scoreText.text = "Bunnies charmed: " + score;
 
-        if (score == 50)
+        if (score >= 20)
         {
-            animator.Play("princessVictory");
+            animator.SetBool("isVictorious", true);
+            SceneManager.LoadScene(3);
         }
 
     }
@@ -124,16 +135,19 @@ public class PlayerController : MonoBehaviour
             // lose a life
             TakeDamage(1);
 
+            audioSource.PlayOneShot(damageSound);
+
             if (dead == true)
             {
                 // Game over
-                Debug.Log("Game over!");
+                animator.SetBool("isDead", true);
                 SceneManager.LoadScene(2);
             } 
            
         }
     }
 
+    // function for taking damage
     void TakeDamage(int d)
     {
         if (lives >= 1)
