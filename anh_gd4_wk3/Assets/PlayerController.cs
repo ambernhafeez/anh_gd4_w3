@@ -1,7 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
